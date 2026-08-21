@@ -25,9 +25,10 @@ const WEATHER_API = `https://${QWEATHER_HOST}/v7/weather/now`;     // 实时天�
 // 要展示的三个地点。
 // keyword：用来搜索的关键字；adm：所属行政区划，帮助精确定位到正确的区县。
 const LOCATIONS = [
-  { name: "北京市顺义区",         keyword: "顺义", adm: "北京市" },
-  { name: "河北省沧州市青县",     keyword: "青县", adm: "河北省" },
-  { name: "河北省石家庄市裕华区", keyword: "裕华", adm: "河北省" },
+  { name: "河北省三河市", keyword: "三河市", adm: "河北省" },
+  { name: "辽宁省铁岭市", keyword: "铁岭市", adm: "辽宁省" },
+  { name: "河北省沧州市", keyword: "沧州市", adm: "河北省" },
+  { name: "河北省承德市", keyword: "承德市", adm: "河北省" },
 ];
 
 // 自动刷新间隔（单位：毫秒）。10 分钟 = 10 × 60秒 × 1000毫秒
