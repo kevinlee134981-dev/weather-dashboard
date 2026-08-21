@@ -1,0 +1,143 @@
+/* =========================================================
+   样式表（CSS）
+   负责页面外观：背景、卡片布局、文字颜色等
+   ========================================================= */
+
+/* 通配选择器 *：把所有元素的内外边距清零，
+   并让 padding/border 计入元素总宽高，布局更可控 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 页面整体背景与基础字体 */
+body {
+  /* 优先使用常见的中文字体，找不到就退回系统默认 sans-serif */
+  font-family: "PingFang SC", "Microsoft YaHei", "微软雅黑", sans-serif;
+  /* 一段从左上到右下的蓝色渐变背景，比纯色更好看 */
+  background: linear-gradient(135deg, #6dd5ed, #2193b0);
+  min-height: 100vh;          /* 至少撑满整个屏幕高度 */
+  color: #ffffff;             /* 默认文字为白色 */
+  padding: 24px;              /* 页面四周留白 */
+}
+
+/* 顶部标题区域：内容居中 */
+header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+header h1 {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+/* “最后更新时间”文字，稍微透明一点，弱化存在感 */
+#last-update {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 12px;
+}
+
+/* 手动刷新按钮样式 */
+#refresh-btn {
+  background: #ffffff;
+  color: #2193b0;             /* 文字用深蓝色，和背景呼应 */
+  border: none;
+  border-radius: 20px;        /* 圆角胶囊形 */
+  padding: 8px 20px;
+  font-size: 14px;
+  cursor: pointer;           /* 鼠标悬停显示“手型”，提示可点击 */
+  transition: background 0.2s; /* 颜色变化加一点点过渡动画 */
+}
+#refresh-btn:hover {
+  background: #f0f0f0;
+}
+
+/* 天气卡片容器：使用 CSS Grid 网格布局
+   repeat(auto-fit, minmax(260px, 1fr)) 的意思是：
+   每行尽可能多放卡片，每张最小 260px，空间够就自动并排，
+   空间不够（比如手机屏）就自动换行堆叠 */
+.weather-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;                  /* 卡片之间的间距 */
+  max-width: 1000px;          /* 整体最大宽度，避免在大屏上拉太宽 */
+  margin: 0 auto;             /* 配合 max-width 实现水平居中 */
+}
+
+/* 单张天气卡片 */
+.weather-card {
+  background: rgba(255, 255, 255, 0.15); /* 半透明白色，做出毛玻璃感 */
+  backdrop-filter: blur(8px);            /* 背景模糊（毛玻璃效果） */
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* 卡片阴影，更有层次 */
+}
+
+/* 卡片标题（地点名）与副标题（行政区划） */
+.card-title {
+  font-size: 20px;
+}
+.card-sub {
+  font-size: 13px;
+  opacity: 0.8;
+  margin-bottom: 12px;
+}
+
+/* 温度/图标/天气状况这一块，垂直居中排列 */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.emoji {
+  font-size: 56px;
+  line-height: 1;
+}
+.temp {
+  font-size: 48px;
+  font-weight: 700;           /* 加粗 */
+}
+.condition {
+  font-size: 18px;
+}
+
+/* 底部详细信息：湿度、风力、体感、更新时间
+   用 2 列网格排列，每行两项 */
+.details {
+  list-style: none;           /* 去掉 <li> 默认的小圆点 */
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  font-size: 14px;
+}
+.details li {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+/* 当某张卡片加载失败时，加上这个 class 显示黄色边框提醒 */
+.card-error {
+  border: 2px solid #ffd166;
+}
+
+/* 全局错误提示条 */
+.error-banner {
+  max-width: 1000px;
+  margin: 0 auto 20px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #b00020;             /* 深红色文字，表示警告 */
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* hidden 类：配合 JS 控制“显示/隐藏” */
+.hidden {
+  display: none;
+}
