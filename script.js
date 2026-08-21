@@ -22,13 +22,16 @@ const QWEATHER_HOST="k45b67edm5.re.qweatherapi.com";
 const GEO_API     = `https://${QWEATHER_HOST}/geo/v2/city/lookup`; // 城市搜索：把地名转成 LocationID
 const WEATHER_API = `https://${QWEATHER_HOST}/v7/weather/now`;     // 实时天气：根据 LocationID 取天气
 
-// 要展示的三个地点。
-// keyword：用来搜索的关键字；adm：所属行政区划，帮助精确定位到正确的区县。
+// 要展示的四个地点。
+// name：卡片上显示的名称；
+// keyword：用来搜索天气的关键字；
+// adm：所属行政区划，帮助精确定位到正确的区县；
+// image：对应地标建筑的图片路径（放在 images/ 文件夹里）。
 const LOCATIONS = [
-  { name: "河北省三河市", keyword: "三河市", adm: "河北省" },
-  { name: "辽宁省铁岭市", keyword: "铁岭市", adm: "辽宁省" },
-  { name: "河北省沧州市", keyword: "沧州市", adm: "河北省" },
-  { name: "河北省承德市", keyword: "承德市", adm: "河北省" },
+  { name: "河北省三河市", keyword: "三河市", adm: "河北省", image: "images/sanhe.png" },
+  { name: "辽宁省铁岭市", keyword: "铁岭市", adm: "辽宁省", image: "images/tieling.png" },
+  { name: "河北省沧州市", keyword: "沧州市", adm: "河北省", image: "images/cangzhou.png" },
+  { name: "河北省承德市", keyword: "承德市", adm: "河北省", image: "images/chengde.png" },
 ];
 
 // 自动刷新间隔（单位：毫秒）。10 分钟 = 10 × 60秒 × 1000毫秒
@@ -126,6 +129,7 @@ function createCard(loc) {
   card.className = "weather-card";
   // 用模板字符串一次性写好卡片内部结构
   card.innerHTML = `
+    <img class="landmark-img" src="${loc.image}" alt="${loc.name}地标" />
     <h2 class="card-title">${loc.name}</h2>
     <p class="card-sub">${loc.adm}</p>
     <div class="card-body">
@@ -199,7 +203,7 @@ async function refreshAll() {
 
 // 等 HTML 文档加载完成后再执行，确保能找到上面的元素
 document.addEventListener("DOMContentLoaded", () => {
-  // 1) 先为三个地点各创建一张空卡片，放进容器
+  // 1) 先为四个地点各创建一张空卡片，放进容器
   const container = document.getElementById("weather-container");
   LOCATIONS.forEach((loc) => {
     const card = createCard(loc);

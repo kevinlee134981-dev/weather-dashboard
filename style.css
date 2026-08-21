@@ -53,26 +53,46 @@ header h1 {
   background: #f0f0f0;
 }
 
-/* 天气卡片容器：使用 CSS Grid 网格布局
-   repeat(auto-fit, minmax(260px, 1fr)) 的意思是：
-   每行尽可能多放卡片，每张最小 260px，空间够就自动并排，
-   空间不够（比如手机屏）就自动换行堆叠 */
+/* 天气卡片容器：固定排成一行，不自动换行。
+   桌面端居中显示，窄屏时允许横向滚动查看。 */
 .weather-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  display: flex;
+  flex-wrap: nowrap;          /* 关键：禁止换行，始终保持一行 */
   gap: 20px;                  /* 卡片之间的间距 */
-  max-width: 1000px;          /* 整体最大宽度，避免在大屏上拉太宽 */
+  justify-content: center;      /* 桌面端水平居中 */
+  max-width: 1200px;          /* 四张卡片 + 间距 的总宽度上限 */
   margin: 0 auto;             /* 配合 max-width 实现水平居中 */
+}
+
+/* 当屏幕宽度不够放下四张卡片时，允许横向滚动而不是换行 */
+@media (max-width: 1100px) {
+  .weather-grid {
+    justify-content: flex-start;
+    overflow-x: auto;         /* 超出部分可左右滑动 */
+    padding-bottom: 12px;     /* 给滚动条留点空间 */
+  }
 }
 
 /* 单张天气卡片 */
 .weather-card {
+  /* 关键：固定基础宽度，不随屏幕变小而压缩，保证一行四列 */
+  flex: 0 0 260px;
   background: rgba(255, 255, 255, 0.15); /* 半透明白色，做出毛玻璃感 */
   backdrop-filter: blur(8px);            /* 背景模糊（毛玻璃效果） */
   border-radius: 16px;
   padding: 20px;
   text-align: center;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* 卡片阴影，更有层次 */
+}
+
+/* 地标建筑图片：统一高度、裁剪比例、圆角 */
+.landmark-img {
+  width: 100%;              /* 撑满卡片宽度 */
+  height: 120px;            /* 固定高度，四张图看起来一致 */
+  object-fit: cover;        /* 裁剪多余部分，保持比例不变形 */
+  border-radius: 10px;      /* 和卡片风格一致的圆角 */
+  margin-bottom: 12px;      /* 图片和标题之间留点间距 */
+  background: rgba(255, 255, 255, 0.2); /* 图片加载前显示淡色占位 */
 }
 
 /* 卡片标题（地点名）与副标题（行政区划） */

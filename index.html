@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <!-- 视口设置：让页面在手机上也能正常缩放显示 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>三地实时天气看板</title>
+  <title>四地实时天气看板</title>
   <!-- 引入外部样式表（所有外观都写在 style.css 里） -->
   <link rel="stylesheet" href="style.css">
 </head>
@@ -14,7 +14,7 @@
 
   <!-- 页面顶部：标题 + 最后更新时间 + 手动刷新按钮 -->
   <header>
-    <h1>三地实时天气看板</h1>
+    <h1>四地实时天气看板</h1>
     <!-- 这个 <p> 用来显示“最后更新：xx:xx:xx”，由 JS 动态写入 -->
     <p id="last-update">数据加载中…</p>
     <!-- 手动刷新按钮：点一下立刻重新拉取天气（自动刷新之外的一个补充） -->
@@ -24,7 +24,7 @@
   <!-- 全局错误提示条：默认隐藏，出问题时由 JS 显示出来 -->
   <div id="error-banner" class="error-banner hidden"></div>
 
-  <!-- 天气卡片容器：三张卡片会由 JS 动态创建并塞进这里 -->
+  <!-- 天气卡片容器：四张卡片会由 JS 动态创建并塞进这里 -->
   <main id="weather-container" class="weather-grid"></main>
 
   <!-- 引入我们的 JavaScript 逻辑。放在 body 末尾，
